@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LMVEX – Laurence Monkam</title>
+<meta name="description" content="LMVEX Solutions+ – MES Qualification & Validation für Pharma und Biotech. Laurence Monkam, Frankfurt/Rhein-Main.">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+/* Layout idea: a released GMP document in black and gold — dark title sheet with the gold LMVEX seal, then numbered sections like a validation package; the project timeline is the signature element. */
+:root{
+  --ink:#151515;
+  --paper:#ececea;
+  --sheet:#fbfbfa;
+  --rule:#d2d0ca;
+  --muted:#5f5d57;
+  --gold:#8a6a2a;
+  --gold-hi:#d9bd73;
+  --night:#121212;
+  --on-night:#f1ede2;
+  --grad:linear-gradient(120deg,#ad8848 0%,#e7d48c 45%,#f8f0a4 55%,#c9a45c 100%);
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --brand:"Comfortaa",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#ece8de;--paper:#0f0f0e;--sheet:#191917;--rule:#34322c;--muted:#a6a196;--gold:#d9bd73;--night:#050505;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#ece8de;--paper:#0f0f0e;--sheet:#191917;--rule:#34322c;--muted:#a6a196;--gold:#d9bd73;--night:#050505;color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+a{color:var(--gold)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+img{max-width:100%;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+
+/* top bar */
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:var(--brand);font-weight:600;font-size:18px}
+.brand img{width:34px;height:34px}
+.brand small{font-weight:400;color:var(--muted)}
+.nav{display:flex;gap:18px;flex-wrap:wrap;font-size:14.5px}
+.nav a{color:var(--ink);text-decoration:none}
+.nav a:hover{color:var(--gold)}
+.lang{display:flex;gap:4px;font-family:var(--mono);font-size:13px}
+.lang button{background:none;border:1px solid var(--rule);color:var(--muted);padding:6px 10px;cursor:pointer;font:inherit;border-radius:2px}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* title sheet */
+.title{background:var(--night);color:var(--on-night);position:relative;overflow:hidden}
+.title::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--grad)}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid #2e2b24;font-family:var(--mono);font-size:12px}
+.meta div{padding:12px 18px;border-right:1px solid #2e2b24}
+.meta div:last-child{border-right:0}
+.meta b{display:block;font-weight:400;color:#9c9584;text-transform:uppercase;letter-spacing:.08em;font-size:10.5px}
+.status::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#7fc79a;margin-right:6px;vertical-align:1px}
+.hero{display:grid;grid-template-columns:1.55fr 1fr;gap:44px;padding:48px 44px 52px;align-items:center}
+.hero .role{font-family:var(--mono);font-size:13.5px;color:var(--gold-hi);margin:0 0 16px;letter-spacing:.02em}
+.hero h1{font-size:clamp(46px,7.4vw,92px);line-height:.92;font-weight:800;font-stretch:70%;text-transform:uppercase;letter-spacing:-.005em}
+.hero h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .claim{font-family:var(--brand);font-size:18px;margin:18px 0 0;color:var(--gold-hi)}
+.hero p.lead{font-size:18.5px;max-width:58ch;margin:18px 0 0;color:#d9d4c6}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border:1px solid #5a5240;text-decoration:none;color:var(--on-night);font-weight:600;font-size:15.5px}
+.btn.primary{background:var(--grad);color:#151515;border-color:transparent}
+.btn:hover{border-color:var(--gold-hi)}
+.btn small{font-family:var(--mono);font-weight:400;font-size:12px;opacity:.75}
+.portrait{position:relative;justify-self:end;width:min(100%,360px)}
+.portrait .ph{aspect-ratio:1/1.03;overflow:hidden;border:1px solid #3a352a}
+.portrait .ph img{width:100%;height:100%;object-fit:cover}
+.portrait .seal{position:absolute;width:118px;left:-40px;bottom:-30px;filter:drop-shadow(0 8px 18px rgba(0,0,0,.45))}
+
+/* figures */
+.figs{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #2e2b24}
+.figs div{padding:18px 22px;border-right:1px solid #2e2b24}
+.figs div:last-child{border-right:0}
+.figs b{display:block;font-family:var(--display);font-stretch:75%;font-size:34px;line-height:1;color:var(--gold-hi);font-variant-numeric:tabular-nums}
+.figs span{font-size:13.5px;color:#b5ae9d}
+
+/* sections */
+section{padding:72px 0 0;scroll-margin-top:12px}
+.sec-h{display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:baseline;border-top:2px solid var(--ink);padding-top:14px;margin-bottom:28px}
+.sec-h .no{font-family:var(--mono);font-size:13px;color:var(--gold)}
+.sec-h h2{font-size:34px;font-weight:700;font-stretch:82%}
+.sec-h p{grid-column:2;margin:6px 0 0;color:var(--muted);max-width:64ch}
+
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.svc{background:var(--sheet);padding:24px 22px}
+.svc .k{font-family:var(--mono);font-size:12px;color:var(--gold)}
+.svc h3{font-size:22px;font-weight:700;font-stretch:88%;margin:6px 0 12px}
+.svc ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.svc li{font-size:15px;color:var(--muted);padding-left:16px;position:relative}
+.svc li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--gold)}
+.svc li strong{color:var(--ink);font-weight:600;display:block}
+
+.occ{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;align-items:center}
+.occ > span{font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-right:6px}
+.chip{border:1px solid var(--rule);background:var(--sheet);padding:5px 12px;font-size:14.5px;border-radius:999px}
+
+/* V-model */
+.vmodel{background:var(--sheet);border:1px solid var(--rule);padding:26px 24px;overflow-x:auto}
+.vmodel svg{display:block;min-width:740px;width:100%;height:auto}
+.vmodel text{font-family:var(--mono);font-size:12px;fill:var(--ink)}
+.vmodel .lbl{fill:var(--muted);font-size:11px}
+.vmodel .box{fill:var(--paper);stroke:var(--rule)}
+.vmodel .box.hl{fill:var(--ink);stroke:var(--ink)}
+.vmodel .hlt{fill:var(--paper)}
+.vmodel .ln{stroke:var(--rule);stroke-width:1.5;fill:none}
+.vmodel .tr{stroke:var(--gold);stroke-dasharray:4 4;stroke-width:1.2}
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:28px}
+.skills h3{font-family:var(--mono);font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0}
+.tags li{border:1px solid var(--rule);background:var(--sheet);padding:4px 10px;font-size:14.5px}
+
+/* project timeline */
+.gantt{background:var(--sheet);border:1px solid var(--rule);padding:22px 24px 10px;overflow-x:auto}
+.g-inner{min-width:720px}
+.g-scale,.g-row{display:grid;grid-template-columns:250px 1fr;gap:18px;align-items:center}
+.g-scale .ticks{position:relative;height:24px;font-family:var(--mono);font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;border-bottom:1px solid var(--rule);padding-bottom:6px}
+.g-scale .ticks span{position:absolute;top:0}
+.g-row{padding:12px 0;border-bottom:1px solid var(--rule)}
+.g-row:last-child{border-bottom:0}
+.g-row h3{font-size:16.5px;font-weight:700;font-stretch:90%}
+.g-row .sys{font-family:var(--mono);font-size:12px;color:var(--gold)}
+.track{position:relative;height:30px;background:repeating-linear-gradient(90deg,transparent 0 calc(100%/16 - 1px),var(--rule) calc(100%/16 - 1px) calc(100%/16))}
+.bar{position:absolute;top:5px;height:20px;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:11px;display:flex;align-items:center;padding:0 8px;white-space:nowrap;overflow:hidden}
+.bar.now{background:var(--grad);color:#151515}
+
+/* experience */
+.tl{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--rule)}
+.tl li{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--rule)}
+.tl .when{font-family:var(--mono);font-size:13.5px;color:var(--gold);font-variant-numeric:tabular-nums}
+.tl h3{font-size:21px;font-weight:700;font-stretch:90%}
+.tl .org{color:var(--muted);font-size:15px;margin:2px 0 6px}
+.tl p{margin:0;max-width:66ch}
+.tl-ul{margin:4px 0 0;padding:0 0 0 18px;max-width:68ch;display:grid;gap:6px}
+.tl-ul strong{font-weight:600}
+
+/* references */
+.refs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ref{background:var(--sheet);border:1px solid var(--rule);border-top:3px solid var(--gold);padding:26px 26px 22px;margin:0;display:flex;flex-direction:column;gap:16px}
+.ref blockquote{margin:0;font-size:18.5px;line-height:1.5;font-style:italic}
+.ref figcaption{font-size:14.5px;color:var(--muted)}
+.ref figcaption b{color:var(--ink);font-weight:600;display:block;font-style:normal}
+
+.who{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;list-style:none;padding:0;margin:0}
+.who li{background:var(--sheet);border:1px solid var(--rule);padding:14px 16px;font-weight:600;font-size:15.5px}
+
+.langs{display:flex;gap:12px;flex-wrap:wrap}
+.langs div{flex:1 1 200px;background:var(--sheet);border:1px solid var(--rule);padding:16px 18px}
+.langs b{font-family:var(--display);font-stretch:85%;font-size:22px;display:block}
+.langs span{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+.contact{display:grid;grid-template-columns:auto 1fr 1fr;gap:32px;align-items:center;background:var(--night);color:var(--on-night);padding:36px 40px;position:relative}
+.contact::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--grad)}
+.contact img{width:120px}
+.contact h3{font-size:32px;font-stretch:78%;font-weight:800;text-transform:uppercase;line-height:1}
+.contact p{margin:12px 0 0;max-width:44ch;color:#cfc9b9}
+.contact dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:15.5px}
+.contact dt{font-family:var(--mono);font-size:11.5px;color:#9c9584;padding-top:3px;text-transform:uppercase;letter-spacing:.06em}
+.contact dd{margin:0}
+.contact a{color:var(--on-night)}
+footer{padding:28px 0 40px;font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:920px){
+  .hero{grid-template-columns:1fr;padding:32px 22px 44px}
+  .portrait{justify-self:start;width:min(100%,300px);margin-left:40px}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .skills{grid-template-columns:1fr}
+  .refs{grid-template-columns:1fr}
+  .who{grid-template-columns:1fr 1fr}
+  .contact{grid-template-columns:1fr;padding:30px 22px}
+  .meta,.figs{grid-template-columns:1fr 1fr}
+  .meta div:nth-child(2),.figs div:nth-child(2){border-right:0}
+  .meta div:nth-child(-n+2),.figs div:nth-child(-n+2){border-bottom:1px solid #2e2b24}
+  .nav{display:none}
+}
+@media (max-width:560px){
+  .svc-grid,.who{grid-template-columns:1fr}
+  .tl li{grid-template-columns:1fr;gap:6px}
+  .sec-h{grid-template-columns:1fr;gap:4px}
+  .sec-h p{grid-column:1}
+}
+@media (prefers-reduced-motion:no-preference){
+  .btn,.nav a{transition:color .15s,border-color .15s}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#leistungen"><img src="assets/logo.png" alt=""><span>LMVEX <small>Solutions+</small></span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#leistungen" data-i="n1">Leistungen</a>
+      <a href="#projekte" data-i="n2">Projekte</a>
+      <a href="#referenzen" data-i="n3">Referenzen</a>
+      <a href="#kontakt" data-i="n4">Kontakt</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button id="btn-de" data-lang="de" aria-pressed="true">DE</button>
+      <button id="btn-en" data-lang="en" aria-pressed="false">EN</button>
+      <button id="btn-fr" data-lang="fr" aria-pressed="false">FR</button>
+    </div>
+  </header>
+
+  <div class="title">
+    <div class="meta">
+      <div><b data-i="m1">Dokument</b>LMVEX-PROFILE-001</div>
+      <div><b>Revision</b>2026-10</div>
+      <div><b data-i="m3">Standort</b>Frankfurt / Rhein-Main</div>
+      <div><b>Status</b><span class="status" data-i="m4">Verfügbar für Projekte</span></div>
+    </div>
+    <div class="hero">
+      <div>
+        <p class="role" data-i="role">MES Qualification &amp; Validation Engineer · Validation Lead · IT/OT Project Lead</p>
+        <h1>Laurence<br><span>Monkam</span></h1>
+        <p class="claim">Smart Solutions for Regulated Environments</p>
+        <p class="lead" data-i="lead">Ich qualifiziere und validiere Manufacturing Execution Systems für Pharma und Biotech: vom Validierungsmasterplan über DQ, IQ, OQ und PQ bis zur auditfesten Dokumentation. Seit über 15 Jahren für globale Pharmaunternehmen, auf Deutsch, Französisch und Englisch.</p>
+        <div class="cta">
+          <a class="btn primary" href="#kontakt" data-i="cta1">Projekt anfragen</a>
+          <a class="btn" href="https://www.linkedin.com/in/laurence-monkam-468684139/" target="_blank" rel="noopener">LinkedIn <small>↗</small></a>
+        </div>
+      </div>
+      <div class="portrait">
+        <div class="ph"><img src="assets/laurence.jpg" alt="Laurence Monkam"></div>
+        <img class="seal" src="assets/logo.png" alt="LMVEX Solutions+">
+      </div>
+    </div>
+    <div class="figs">
+      <div><b>15+</b><span data-i="f1">Jahre MES im GMP-Umfeld</span></div>
+      <div><b>6</b><span data-i="f2">MES- und Historian-Plattformen</span></div>
+      <div><b>DQ→PQ</b><span data-i="f3">inkl. FAT und SAT</span></div>
+      <div><b>DE·FR·EN</b><span data-i="f4">Projektsprachen</span></div>
+    </div>
+  </div>
+
+  <section id="leistungen">
+    <div class="sec-h"><span class="no">01</span><h2 data-i="s1">Leistungen</h2><p data-i="s1p">Ein vollständiges Spektrum von der Strategie bis zur Ausführung, damit Ihre Systeme compliant in Betrieb gehen und bleiben.</p></div>
+    <div class="svc-grid">
+      <div class="svc"><span class="k">01.1</span><h3 data-i="a_h">Strategie &amp; Planung</h3><ul>
+        <li data-i="a1"><strong>Validierungsmasterplan</strong>inkl. Zugriffskonzept und Systembewertung</li>
+        <li data-i="a2"><strong>Architektur &amp; User Requirements</strong>URS als Fundament der Validierung</li></ul></div>
+      <div class="svc"><span class="k">01.2</span><h3 data-i="b_h">Ausführung &amp; Test</h3><ul>
+        <li data-i="b1"><strong>Funktions- &amp; Designspezifikation</strong>FS und DS mit klaren Akzeptanzkriterien</li>
+        <li data-i="b2"><strong>Testphasen DQ, IQ, OQ, PQ, FAT, SAT</strong>Protokolle erstellen und durchführen</li>
+        <li data-i="b3"><strong>Traceability-Matrix, Risikoanalyse &amp; FMEA</strong>Anforderungen lückenlos mit Tests verknüpft</li></ul></div>
+      <div class="svc"><span class="k">01.3</span><h3 data-i="c_h">Migration &amp; Optimierung</h3><ul>
+        <li data-i="c1"><strong>Software-Upgrades &amp; Migrationen</strong>z. B. AspenTech IP.21, PAS-X → Opcenter</li>
+        <li data-i="c2"><strong>Prozessänderungen &amp; Verlagerungen</strong>Requalifizierung mit minimaler Ausfallzeit</li></ul></div>
+      <div class="svc"><span class="k">01.4</span><h3 data-i="d_h">Projektleitung agil &amp; klassisch</h3><ul>
+        <li data-i="d1"><strong>Infrastructure Project Lead</strong>Agile und Wasserfall/V-Modell kombiniert</li>
+        <li data-i="d2"><strong>Scrum Master &amp; Product Owner</strong>Backlog, Roadmap und Prioritäten an Ihren Zielen ausgerichtet</li></ul></div>
+      <div class="svc"><span class="k">01.5</span><h3 data-i="e_h">Training &amp; Qualität</h3><ul>
+        <li data-i="e1"><strong>Schulungen &amp; Dokumentation</strong>maßgeschneidert und auditfest</li>
+        <li data-i="e2"><strong>Workshops &amp; Gap-Analysen</strong>inkl. FMEA- und CAPA-Bewertungen</li></ul></div>
+      <div class="svc"><span class="k">01.6</span><h3 data-i="g_h">Lokalisierung &amp; Übersetzung</h3><ul>
+        <li data-i="g1"><strong>Systeme in DE, FR und EN</strong>präzise lokalisiert für internationale Teams und Stakeholder</li></ul></div>
+    </div>
+    <div class="occ"><span data-i="occ">Anlässe</span>
+      <span class="chip" data-i="o1">Neue Linien &amp; Standorte</span>
+      <span class="chip" data-i="o2">Upgrade von Altsystemen</span>
+      <span class="chip" data-i="o3">Standortverlagerung</span>
+      <span class="chip" data-i="o4">Prozessänderungen</span>
+      <span class="chip" data-i="o5">Neue regulatorische Anforderungen</span>
+      <span class="chip" data-i="o6">Requalifizierung nach Wartung</span>
+    </div>
+  </section>
+
+  <section id="methodik">
+    <div class="sec-h"><span class="no">02</span><h2 data-i="s2">Arbeitsweise: GAMP-5-Lebenszyklus</h2><p data-i="s2p">Jede Spezifikation hat ihren Test. Ich begleite Systeme durch das gesamte V-Modell und verbinde es bei Bedarf mit agilen Methoden.</p></div>
+    <div class="vmodel">
+      <svg viewBox="0 0 900 250" role="img" aria-label="GAMP 5 V-model: URS, FS/DS, configuration, IQ/OQ, PQ">
+        <path class="ln" d="M100 40 L250 126 L450 210 L650 126 L800 40"/>
+        <line class="tr" x1="160" y1="40" x2="740" y2="40"/>
+        <line class="tr" x1="310" y1="126" x2="590" y2="126"/>
+        <rect class="box" x="40" y="22" width="120" height="36" rx="2"/><text x="100" y="45" text-anchor="middle">URS · VMP</text>
+        <rect class="box" x="190" y="108" width="120" height="36" rx="2"/><text x="250" y="131" text-anchor="middle">FS / DS</text>
+        <rect class="box hl" x="360" y="192" width="180" height="36" rx="2"/><text class="hlt" x="450" y="215" text-anchor="middle" data-i="vcfg">Konfiguration · DQ</text>
+        <rect class="box hl" x="590" y="108" width="120" height="36" rx="2"/><text class="hlt" x="650" y="131" text-anchor="middle">FAT · IQ · OQ</text>
+        <rect class="box" x="740" y="22" width="120" height="36" rx="2"/><text x="800" y="45" text-anchor="middle">SAT · PQ</text>
+        <text class="lbl" x="450" y="33" text-anchor="middle" data-i="vtr">verifiziert gegen</text>
+        <text class="lbl" x="450" y="119" text-anchor="middle" data-i="vtr2">verifiziert gegen</text>
+        <text class="lbl" x="40" y="88" data-i="vspec">Spezifikation</text>
+        <text class="lbl" x="860" y="88" text-anchor="end" data-i="vver">Verifizierung</text>
+        <text class="lbl" x="450" y="246" text-anchor="middle" data-i="vtrace">Traceability-Matrix · Risikoanalyse · FMEA</text>
+      </svg>
+    </div>
+    <div class="skills">
+      <div><h3 data-i="k1">Systeme</h3><ul class="tags"><li>Tulip MES</li><li>Siemens Opcenter Execution Pharma</li><li>Siemens Simatic IT EBR</li><li>Simatic Batch · PCS 7</li><li>OSIsoft PI</li><li>SAP · LIMS</li><li>Werum PAS-X</li><li>AspenTech IP.21</li><li>Kneat</li><li>Track &amp; Trace</li></ul></div>
+      <div><h3 data-i="k2">Regularien &amp; Standards</h3><ul class="tags"><li>GMP / GxP</li><li>GAMP 5</li><li>CSV · CQV</li><li>ISA-88</li><li>21 CFR Part 11</li><li>EU GMP Annex 11</li></ul></div>
+      <div><h3 data-i="k3">Methoden</h3><ul class="tags"><li>VMP · URS · FS · DS</li><li>DQ · IQ · OQ · PQ</li><li>FAT · SAT</li><li>FMEA · CAPA</li><li>Scrum Master</li><li>Product Owner</li></ul></div>
+    </div>
+  </section>
+
+  <section id="projekte">
+    <div class="sec-h"><span class="no">03</span><h2 data-i="s3">Projekte 2011 – 2026</h2><p data-i="s3p">Fünfzehn Jahre Fertigungs-IT im Pharmaumfeld, von der Erstimplementierung bis zur Migration.</p></div>
+    <div class="gantt"><div class="g-inner">
+      <div class="g-scale"><span></span><div class="ticks"><span style="left:0.00%">2011</span><span style="left:18.75%">2014</span><span style="left:37.50%">2017</span><span style="left:56.25%">2020</span><span style="left:75.00%">2023</span><span style="left:93.75%">2026</span></div></div>
+      <!-- scale: 2011..2027 = 16 years; left% = (start-2011)/16 -->
+      <div class="g-row"><div><span class="sys">Tulip MES</span><h3 data-i="p1">GMP Validation Stream Manager</h3></div><div class="track"><div class="bar now" style="left:90.6%;width:9.4%">2025–2026</div></div></div>
+      <div class="g-row"><div><span class="sys">Opcenter Execution Pharma · Simatic Batch</span><h3 data-i="p0">MES Consultant &amp; Solution Designer</h3></div><div class="track"><div class="bar now" style="left:94.3%;width:5.7%">2026</div></div></div>
+      <div class="g-row"><div><span class="sys">AspenTech IP.21</span><h3 data-i="p2">Migration, Validierung &amp; IT-Level-Support</h3></div><div class="track"><div class="bar" style="left:50%;width:37.5%">2019–2025</div></div></div>
+      <div class="g-row"><div><span class="sys">Opcenter Execution Pharma</span><h3 data-i="p3">IT Project Lead &amp; Validierung</h3></div><div class="track"><div class="bar" style="left:62.5%;width:12.5%">2021–2023</div></div></div>
+      <div class="g-row"><div><span class="sys">Simatic IT EBR / Opcenter</span><h3 data-i="p5">Integration, Lokalisierung &amp; Training</h3></div><div class="track"><div class="bar" style="left:43.75%;width:6.25%">2018–19</div></div></div>
+      <div class="g-row"><div><span class="sys">Werum PAS-X · Track &amp; Trace</span><h3 data-i="p6">Integration, Konfiguration &amp; Validierung</h3></div><div class="track"><div class="bar" style="left:0;width:43.75%">2011–2018</div></div></div>
+    </div></div>
+
+    <ol class="tl">
+      <li><span class="when">10/2025 – <span data-i="today">heute</span></span><div><h3 data-i="t1">Selbstständige MES- &amp; Validierungsberaterin</h3><div class="org">LMVEX Solutions+ · Frankfurt / Rhein-Main</div><ul class="tl-ul">
+  <li data-i="t1a"><strong>GMP Validation Stream Manager – Tulip MES (2025–2026):</strong> Verantwortung für den gesamten Validierungsstream, von Planung und Risikobewertung über die Testkoordination bis zur dokumentierten Freigabe.</li>
+  <li data-i="t1b"><strong>MES Consultant &amp; Solution Designer – Siemens Opcenter Execution Pharma (2026):</strong> MES-Lösungsdesign für einen neuen Verarbeitungsbereich und Basic Design einer neuen Produktionslinie, von der Anforderungsaufnahme über die Spezifikation bis zur termingerechten Umsetzung mit dem Endkunden. Dazu Qualifizierung und Validierung (IQ/OQ/PQ, Kneat), Schulungen zu Opcenter mit Simatic Batch und PCS 7 sowie Integration mit OSIsoft PI, LIMS und SAP.</li></ul></div></li>
+      <li><span class="when">01/2018 – 10/2025</span><div><h3>Senior Project Engineer</h3><div class="org" data-i="t2o">Orise GmbH (ehem. Process Automation Solutions) · Ludwigshafen</div><p data-i="t2p">MES-Consulting, IT-Projektmanagement sowie Qualifizierung, Validierung und Implementierung von Applikationen im GMP-Umfeld. Verantwortliche Leitung der Dokumentation und Qualifizierung von AspenTech IP.21 bei mehreren Pharmakunden, von der Planung bis zur Produktivsetzung.</p></div></li>
+      <li><span class="when">01/2011 – 01/2017</span><div><h3>Project Engineer</h3><div class="org">Prime4Services · Karlsruhe</div><p data-i="t3p">Betrieb, Optimierung und Support von MES-Plattformen in der Produktion. Einführung von Track-&amp;-Trace-Lösungen für mehr Rückverfolgbarkeit und effizienteres Rückrufmanagement.</p></div></li>
+      <li><span class="when">2006 – 2010</span><div><h3 data-i="t4">Diplom-Wirtschaftsingenieurin</h3><div class="org">Hochschule Darmstadt – University of Applied Sciences</div></div></li>
+    </ol>
+  </section>
+
+  <section id="referenzen">
+    <div class="sec-h"><span class="no">04</span><h2 data-i="s4">Referenzen</h2></div>
+    <div class="refs">
+      <figure class="ref">
+        <blockquote>“She brings an open, pragmatic mindset to every situation, combined with a strong ‘do-it’ attitude that translates ideas into actionable results.”</blockquote>
+        <figcaption><b>Dr. Tobias Jung</b><span data-i="r1">Head Smart Factory Unit API &amp; Devices, Sanofi · Projekt MARS (MES/eBR, Fill &amp; Finish), Rolle: Infrastructure Project Lead</span></figcaption>
+      </figure>
+      <figure class="ref">
+        <blockquote>„Besonders hervorzuheben ist die erfolgreiche Begleitung und verantwortliche Leitung der Dokumentation und Qualifizierung des MES-Systems Aspentech bei verschiedenen Kunden im Pharmabereich nach GMP-Standard.“</blockquote>
+        <figcaption><b>Orise GmbH</b><span data-i="r2">Qualifiziertes Arbeitszeugnis, Oktober 2025</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="zielgruppe">
+    <div class="sec-h"><span class="no">05</span><h2 data-i="s5">Für wen ich arbeite</h2><p data-i="s5p">Entscheiderinnen und Entscheider, die in der Produktion keine Kompromisse bei Qualität und Compliance machen.</p></div>
+    <ul class="who">
+      <li>Digital Site Managers</li><li>Heads of Automation / MES</li><li>Heads of Digital Manufacturing</li><li>Digital Transformation Managers</li>
+      <li>Program Leads</li><li>Digital Projects / Operations Managers</li><li>IT/OT Managers</li><li>Product Owners &amp; Heads of Digital</li>
+    </ul>
+  </section>
+
+  <section id="sprachen">
+    <div class="sec-h"><span class="no">06</span><h2 data-i="s6">Sprachen</h2></div>
+    <div class="langs">
+      <div><b>Deutsch</b><span data-i="l1">Muttersprache / zweisprachig</span></div>
+      <div><b>Français</b><span data-i="l2">Muttersprache / zweisprachig</span></div>
+      <div><b>English</b><span data-i="l3">Verhandlungssicher</span></div>
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <div class="sec-h"><span class="no">07</span><h2 data-i="s7">Kontakt</h2></div>
+    <div class="contact">
+      <img src="assets/logo.png" alt="LMVEX Solutions+">
+      <div><h3 data-i="ch">Validate with precision, produce with excellence.</h3><p data-i="cp">Lassen Sie uns in einem kurzen Gespräch klären, wie ich Ihr Projekt unterstützen kann. Remote europaweit, vor Ort im Rhein-Main-Gebiet.</p></div>
+      <dl>
+        <dt>E-Mail</dt><dd><a href="mailto:laurence.monkam@lmvex.de">laurence.monkam@lmvex.de</a></dd>
+        <dt data-i="cph">Telefon</dt><dd><a href="tel:+4915209232896">+49 152 09232896</a></dd>
+        <dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/laurence-monkam-468684139/" target="_blank" rel="noopener">laurence-monkam-468684139</a></dd>
+      </dl>
+    </div>
+  </section>
+
+  <footer><span>© 2026 LMVEX Solutions+ · Laurence Monkam</span><span><a href="impressum.html" data-i="imp">Impressum</a> · <a href="datenschutz.html" data-i="dsg">Datenschutz</a></span></footer>
+</div>
+
+<script>
+const T={
+ en:{n1:"Services",n2:"Projects",n3:"References",n4:"Contact",
+  m1:"Document",m3:"Location",m4:"Available for projects",
+  role:"MES Qualification & Validation Engineer · Validation Lead · IT/OT Project Lead",
+  lead:"I qualify and validate Manufacturing Execution Systems for pharma and biotech: from the validation master plan through DQ, IQ, OQ and PQ to audit-ready documentation. For more than 15 years, for global pharmaceutical companies, in German, French and English.",
+  cta1:"Request a project",f1:"years of MES in GMP environments",f2:"MES and historian platforms",f3:"including FAT and SAT",f4:"project languages",
+  s1:"Services",s1p:"The full range from strategy to execution, so your systems go live compliant and stay that way.",
+  a_h:"Strategy & planning",a1:"<strong>Validation master plan</strong>including access control concept and system evaluation",a2:"<strong>Architecture & user requirements</strong>URS as the foundation of validation",
+  b_h:"Execution & testing",b1:"<strong>Functional & design specifications</strong>FS and DS with clear acceptance criteria",b2:"<strong>Test phases DQ, IQ, OQ, PQ, FAT, SAT</strong>protocols written and executed",b3:"<strong>Traceability matrix, risk analysis & FMEA</strong>every requirement linked to its test",
+  c_h:"Migration & optimisation",c1:"<strong>Software upgrades & migrations</strong>e.g. AspenTech IP.21, PAS-X → Opcenter",c2:"<strong>Process changes & relocations</strong>requalification with minimal downtime",
+  d_h:"Project lead, agile & classic",d1:"<strong>Infrastructure Project Lead</strong>agile combined with waterfall / V-model",d2:"<strong>Scrum Master & Product Owner</strong>backlog, roadmap and priorities aligned with your goals",
+  e_h:"Training & quality",e1:"<strong>Training & documentation</strong>tailored and audit-ready",e2:"<strong>Workshops & gap analyses</strong>including FMEA and CAPA assessments",
+  g_h:"Localisation & translation",g1:"<strong>Systems in DE, FR and EN</strong>precisely localised for international teams and stakeholders",
+  occ:"Typical triggers",o1:"New lines & sites",o2:"Legacy system upgrades",o3:"Site relocation",o4:"Process changes",o5:"New regulatory requirements",o6:"Requalification after maintenance",
+  s2:"How I work: the GAMP 5 lifecycle",s2p:"Every specification has its test. I take systems through the whole V-model and combine it with agile methods where it helps.",
+  vcfg:"Configuration · DQ",vtr:"verified against",vtr2:"verified against",vspec:"Specification",vver:"Verification",vtrace:"Traceability matrix · risk analysis · FMEA",
+  k1:"Systems",k2:"Regulations & standards",k3:"Methods",
+  s3:"Projects 2011 – 2026",s3p:"Fifteen years of manufacturing IT in pharma, from first implementation to migration.",
+  p1:"GMP Validation Stream Manager",p2:"Migration, validation & IT level support",p3:"IT Project Lead & validation",p4:"Migration & validation",p5:"Integration, localisation & training",p6:"Integration, configuration & validation",
+  today:"present",t1:"Independent MES & validation consultant",
+  t1a:"<strong>GMP Validation Stream Manager – Tulip MES (2025–2026):</strong> accountable for the entire validation stream, from planning and risk assessment through test coordination to documented release.",
+  t1b:"<strong>MES Consultant & Solution Designer – Siemens Opcenter Execution Pharma (2026):</strong> MES solution design for a new processing area and basic design of a new production line, from requirements gathering and specification to on-time delivery with the end customer. Plus qualification and validation (IQ/OQ/PQ, Kneat), training on Opcenter with Simatic Batch and PCS 7, and integration with OSIsoft PI, LIMS and SAP.",
+  p0:"MES Consultant & Solution Designer",
+  t2o:"Orise GmbH (formerly Process Automation Solutions) · Ludwigshafen",
+  t2p:"MES consulting, IT project management, and qualification, validation and implementation of applications in GMP environments. Led documentation and qualification of AspenTech IP.21 for several pharma clients, from planning to go-live.",
+  t3p:"Operation, optimisation and support of MES platforms in production. Introduced track & trace solutions for better traceability and more efficient recall management.",
+  t4:"Diploma in Industrial Engineering (Dipl.-Wirtschaftsingenieurin)",
+  s4:"References",r1:"Head Smart Factory Unit API & Devices, Sanofi · MARS project (MES/eBR, Fill & Finish), role: Infrastructure Project Lead",r2:"Employment reference (original in German), October 2025",
+  s5:"Who I work for",s5p:"Decision-makers who accept no compromise on quality and compliance in production.",
+  s6:"Languages",l1:"Native / bilingual",l2:"Native / bilingual",l3:"Full professional",
+  s7:"Contact",ch:"Validate with precision, produce with excellence.",cp:"Let’s schedule a short call to see how I can support your project. Remote across Europe, on site in the Frankfurt/Rhine-Main region.",cph:"Phone",imp:"Legal notice",dsg:"Privacy policy"},
+ fr:{n1:"Prestations",n2:"Projets",n3:"Références",n4:"Contact",
+  m1:"Document",m3:"Lieu",m4:"Disponible pour des missions",
+  role:"Ingénieure qualification & validation MES · Validation Lead · Cheffe de projet IT/OT",
+  lead:"Je qualifie et valide des Manufacturing Execution Systems pour la pharma et la biotech : du plan directeur de validation aux QD, QI, QO et QP, jusqu’à une documentation prête pour l’audit. Depuis plus de 15 ans, pour des groupes pharmaceutiques internationaux, en français, allemand et anglais.",
+  cta1:"Demander une mission",f1:"ans de MES en environnement BPF",f2:"plateformes MES et historian",f3:"y compris FAT et SAT",f4:"langues de travail",
+  s1:"Prestations",s1p:"Un accompagnement complet, de la stratégie à l’exécution, pour que vos systèmes démarrent conformes et le restent.",
+  a_h:"Stratégie & planification",a1:"<strong>Plan directeur de validation</strong>avec concept d’accès et évaluation du système",a2:"<strong>Architecture & besoins utilisateurs</strong>l’URS comme fondation de la validation",
+  b_h:"Exécution & tests",b1:"<strong>Spécifications fonctionnelles & de conception</strong>FS et DS avec critères d’acceptation clairs",b2:"<strong>Phases de test QD, QI, QO, QP, FAT, SAT</strong>rédaction et exécution des protocoles",b3:"<strong>Matrice de traçabilité, analyse de risques & AMDE</strong>chaque exigence reliée à son test",
+  c_h:"Migration & optimisation",c1:"<strong>Mises à niveau & migrations</strong>p. ex. AspenTech IP.21, PAS-X → Opcenter",c2:"<strong>Changements de procédé & transferts</strong>requalification avec un arrêt minimal",
+  d_h:"Gestion de projet agile & classique",d1:"<strong>Infrastructure Project Lead</strong>agile combiné au cycle en V",d2:"<strong>Scrum Master & Product Owner</strong>backlog, roadmap et priorités alignés sur vos objectifs",
+  e_h:"Formation & qualité",e1:"<strong>Formations & documentation</strong>sur mesure et prêtes pour l’audit",e2:"<strong>Ateliers & analyses d’écarts</strong>y compris évaluations AMDE et CAPA",
+  g_h:"Localisation & traduction",g1:"<strong>Systèmes en FR, DE et EN</strong>localisés avec précision pour les équipes internationales",
+  occ:"Contextes",o1:"Nouvelles lignes & sites",o2:"Mise à niveau de systèmes existants",o3:"Transfert de site",o4:"Changements de procédé",o5:"Nouvelles exigences réglementaires",o6:"Requalification après maintenance",
+  s2:"Méthode : le cycle de vie GAMP 5",s2p:"Chaque spécification a son test. J’accompagne les systèmes sur tout le cycle en V et l’associe aux méthodes agiles si besoin.",
+  vcfg:"Configuration · QD",vtr:"vérifié par",vtr2:"vérifié par",vspec:"Spécification",vver:"Vérification",vtrace:"Matrice de traçabilité · analyse de risques · AMDE",
+  k1:"Systèmes",k2:"Réglementation & normes",k3:"Méthodes",
+  s3:"Projets 2011 – 2026",s3p:"Quinze ans d’informatique de production pharmaceutique, de la première mise en œuvre à la migration.",
+  p1:"GMP Validation Stream Manager",p2:"Migration, validation & support IT",p3:"Cheffe de projet IT & validation",p4:"Migration & validation",p5:"Intégration, localisation & formation",p6:"Intégration, configuration & validation",
+  today:"aujourd’hui",t1:"Consultante indépendante MES & validation",
+  t1a:"<strong>GMP Validation Stream Manager – Tulip MES (2025–2026) :</strong> responsable de l’ensemble du stream de validation, de la planification et l’analyse de risques à la coordination des tests jusqu’à la libération documentée.",
+  t1b:"<strong>MES Consultant & Solution Designer – Siemens Opcenter Execution Pharma (2026) :</strong> conception de la solution MES pour une nouvelle zone de fabrication et basic design d’une nouvelle ligne de production, du recueil des exigences et des spécifications jusqu’à la mise en œuvre dans les délais avec le client final. Ainsi que qualification et validation (QI/QO/QP, Kneat), formations Opcenter avec Simatic Batch et PCS 7, et intégration avec OSIsoft PI, LIMS et SAP.",
+  p0:"MES Consultant & Solution Designer",
+  t2o:"Orise GmbH (anciennement Process Automation Solutions) · Ludwigshafen",
+  t2p:"Conseil MES, gestion de projets IT, qualification, validation et mise en œuvre d’applications en environnement BPF. Responsable de la documentation et de la qualification d’AspenTech IP.21 chez plusieurs clients pharmaceutiques, de la planification à la mise en production.",
+  t3p:"Exploitation, optimisation et support de plateformes MES en production. Mise en place de solutions de track & trace pour une meilleure traçabilité et une gestion des rappels plus efficace.",
+  t4:"Diplôme d’ingénieure industrielle (Dipl.-Wirtschaftsingenieurin)",
+  s4:"Références",r1:"Head Smart Factory Unit API & Devices, Sanofi · projet MARS (MES/eBR, Fill & Finish), rôle : Infrastructure Project Lead",r2:"Certificat de travail (original en allemand), octobre 2025",
+  s5:"Pour qui je travaille",s5p:"Des décideurs qui ne font aucun compromis sur la qualité et la conformité en production.",
+  s6:"Langues",l1:"Langue maternelle / bilingue",l2:"Langue maternelle / bilingue",l3:"Courant (niveau professionnel)",
+  s7:"Contact",ch:"Validate with precision, produce with excellence.",cp:"Planifions un court échange pour voir comment je peux soutenir votre projet. À distance dans toute l’Europe, sur site dans la région Rhin-Main (Francfort).",cph:"Téléphone",imp:"Mentions légales",dsg:"Confidentialité"}
+};
+const DE={};document.querySelectorAll("[data-i]").forEach(e=>DE[e.dataset.i]=e.innerHTML);T.de=DE;
+function setLang(l){
+  if(!T[l])l="de";
+  document.documentElement.lang=l;
+  document.querySelectorAll("[data-i]").forEach(e=>{const v=T[l][e.dataset.i];if(v!==undefined)e.innerHTML=v;});
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.lang===l)));
+}
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>{location.hash=b.dataset.lang;setLang(b.dataset.lang);}));
+window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(T[h])setLang(h);});
+const h0=location.hash.slice(1);setLang(T[h0]?h0:"de");
+</script>
+</body>
+</html>
