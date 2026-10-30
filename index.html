@@ -11,11 +11,13 @@
 /* Layout idea: a released GMP document in black and gold — dark title sheet with the gold LMVEX seal, then numbered sections like a validation package; the project timeline is the signature element. */
 :root{
   --ink:#151515;
-  --paper:#ececea;
-  --sheet:#fbfbfa;
-  --rule:#d2d0ca;
+  --paper:#ffffff;
+  --sheet:#ffffff;
+  --rule:#e3dfd4;
   --muted:#5f5d57;
   --gold:#8a6a2a;
+  --gold-text:linear-gradient(120deg,#7a5a20 0%,#b08a4a 50%,#8a6a2a 100%);
+  --soft:#faf8f3;
   --gold-hi:#d9bd73;
   --night:#121212;
   --on-night:#f1ede2;
@@ -25,14 +27,6 @@
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
   color-scheme:light;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --ink:#ece8de;--paper:#0f0f0e;--sheet:#191917;--rule:#34322c;--muted:#a6a196;--gold:#d9bd73;--night:#050505;color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --ink:#ece8de;--paper:#0f0f0e;--sheet:#191917;--rule:#34322c;--muted:#a6a196;--gold:#d9bd73;--night:#050505;color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -56,35 +50,35 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
 .lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 
 /* title sheet */
-.title{background:var(--night);color:var(--on-night);position:relative;overflow:hidden}
+.title{background:var(--sheet);color:var(--ink);position:relative;overflow:hidden;border:1px solid var(--rule)}
 .title::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--grad)}
-.meta{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid #2e2b24;font-family:var(--mono);font-size:12px}
-.meta div{padding:12px 18px;border-right:1px solid #2e2b24}
+.meta{display:grid;grid-template-columns:repeat(2,1fr);border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:12px}
+.meta div{padding:12px 18px;border-right:1px solid var(--rule)}
 .meta div:last-child{border-right:0}
-.meta b{display:block;font-weight:400;color:#9c9584;text-transform:uppercase;letter-spacing:.08em;font-size:10.5px}
+.meta b{display:block;font-weight:400;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-size:10.5px}
 .status::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#7fc79a;margin-right:6px;vertical-align:1px}
 .hero{display:grid;grid-template-columns:1.55fr 1fr;gap:44px;padding:48px 44px 52px;align-items:center}
-.hero .role{font-family:var(--mono);font-size:13.5px;color:var(--gold-hi);margin:0 0 16px;letter-spacing:.02em}
+.hero .role{font-family:var(--mono);font-size:13.5px;color:var(--gold);margin:0 0 16px;letter-spacing:.02em}
 .hero h1{font-size:clamp(46px,7.4vw,92px);line-height:.92;font-weight:800;font-stretch:70%;text-transform:uppercase;letter-spacing:-.005em}
-.hero h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero .claim{font-family:var(--brand);font-size:18px;margin:18px 0 0;color:var(--gold-hi)}
-.hero p.lead{font-size:18.5px;max-width:58ch;margin:18px 0 0;color:#d9d4c6}
+.hero h1 span{background:var(--gold-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .claim{font-family:var(--brand);font-size:18px;margin:18px 0 0;color:var(--gold)}
+.hero p.lead{font-size:18.5px;max-width:58ch;margin:18px 0 0;color:#3d3b36}
 .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border:1px solid #5a5240;text-decoration:none;color:var(--on-night);font-weight:600;font-size:15.5px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border:1px solid var(--ink);text-decoration:none;color:var(--ink);font-weight:600;font-size:15.5px}
 .btn.primary{background:var(--grad);color:#151515;border-color:transparent}
-.btn:hover{border-color:var(--gold-hi)}
+.btn:hover{border-color:var(--gold);color:var(--gold)}
 .btn small{font-family:var(--mono);font-weight:400;font-size:12px;opacity:.75}
 .portrait{position:relative;justify-self:end;width:min(100%,360px)}
-.portrait .ph{aspect-ratio:1/1.03;overflow:hidden;border:1px solid #3a352a}
+.portrait .ph{aspect-ratio:1/1.03;overflow:hidden;border:1px solid var(--rule)}
 .portrait .ph img{width:100%;height:100%;object-fit:cover}
-.portrait .seal{position:absolute;width:118px;left:-40px;bottom:-30px;filter:drop-shadow(0 8px 18px rgba(0,0,0,.45))}
+.portrait .seal{position:absolute;width:118px;left:-40px;bottom:-30px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.18))}
 
 /* figures */
-.figs{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #2e2b24}
-.figs div{padding:18px 22px;border-right:1px solid #2e2b24}
+.figs{background:var(--soft);display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--rule)}
+.figs div{padding:18px 22px;border-right:1px solid var(--rule)}
 .figs div:last-child{border-right:0}
-.figs b{display:block;font-family:var(--display);font-stretch:75%;font-size:34px;line-height:1;color:var(--gold-hi);font-variant-numeric:tabular-nums}
-.figs span{font-size:13.5px;color:#b5ae9d}
+.figs b{display:block;font-family:var(--display);font-stretch:75%;font-size:34px;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+.figs span{font-size:13.5px;color:var(--muted)}
 
 /* sections */
 section{padding:72px 0 0;scroll-margin-top:12px}
@@ -119,7 +113,7 @@ section{padding:72px 0 0;scroll-margin-top:12px}
 .skills{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:28px}
 .skills h3{font-family:var(--mono);font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
 .tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0}
-.tags li{border:1px solid var(--rule);background:var(--sheet);padding:4px 10px;font-size:14.5px}
+.tags li{border:1px solid var(--rule);background:var(--soft);padding:4px 10px;font-size:14.5px}
 
 /* project timeline */
 .gantt{background:var(--sheet);border:1px solid var(--rule);padding:22px 24px 10px;overflow-x:auto}
@@ -137,7 +131,7 @@ section{padding:72px 0 0;scroll-margin-top:12px}
 
 /* experience */
 .tl{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--rule)}
-.tl li{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--rule)}
+.tl > li{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--rule)}
 .tl .when{font-family:var(--mono);font-size:13.5px;color:var(--gold);font-variant-numeric:tabular-nums}
 .tl h3{font-size:21px;font-weight:700;font-stretch:90%}
 .tl .org{color:var(--muted);font-size:15px;margin:2px 0 6px}
@@ -160,15 +154,15 @@ section{padding:72px 0 0;scroll-margin-top:12px}
 .langs b{font-family:var(--display);font-stretch:85%;font-size:22px;display:block}
 .langs span{font-family:var(--mono);font-size:12px;color:var(--muted)}
 
-.contact{display:grid;grid-template-columns:auto 1fr 1fr;gap:32px;align-items:center;background:var(--night);color:var(--on-night);padding:36px 40px;position:relative}
+.contact{display:grid;grid-template-columns:auto 1fr 1fr;gap:32px;align-items:center;background:var(--soft);color:var(--ink);border:1px solid var(--rule);padding:36px 40px;position:relative}
 .contact::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--grad)}
 .contact img{width:120px}
 .contact h3{font-size:32px;font-stretch:78%;font-weight:800;text-transform:uppercase;line-height:1}
-.contact p{margin:12px 0 0;max-width:44ch;color:#cfc9b9}
+.contact p{margin:12px 0 0;max-width:44ch;color:var(--muted)}
 .contact dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:15.5px}
-.contact dt{font-family:var(--mono);font-size:11.5px;color:#9c9584;padding-top:3px;text-transform:uppercase;letter-spacing:.06em}
+.contact dt{font-family:var(--mono);font-size:11.5px;color:var(--muted);padding-top:3px;text-transform:uppercase;letter-spacing:.06em}
 .contact dd{margin:0}
-.contact a{color:var(--on-night)}
+.contact a{color:var(--ink)}
 footer{padding:28px 0 40px;font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 @media (max-width:920px){
@@ -179,14 +173,11 @@ footer{padding:28px 0 40px;font-family:var(--mono);font-size:12px;color:var(--mu
   .refs{grid-template-columns:1fr}
   .who{grid-template-columns:1fr 1fr}
   .contact{grid-template-columns:1fr;padding:30px 22px}
-  .meta,.figs{grid-template-columns:1fr 1fr}
-  .meta div:nth-child(2),.figs div:nth-child(2){border-right:0}
-  .meta div:nth-child(-n+2),.figs div:nth-child(-n+2){border-bottom:1px solid #2e2b24}
   .nav{display:none}
 }
 @media (max-width:560px){
   .svc-grid,.who{grid-template-columns:1fr}
-  .tl li{grid-template-columns:1fr;gap:6px}
+  .tl > li{grid-template-columns:1fr;gap:6px}
   .sec-h{grid-template-columns:1fr;gap:4px}
   .sec-h p{grid-column:1}
 }
@@ -214,8 +205,6 @@ footer{padding:28px 0 40px;font-family:var(--mono);font-size:12px;color:var(--mu
 
   <div class="title">
     <div class="meta">
-      <div><b data-i="m1">Dokument</b>LMVEX-PROFILE-001</div>
-      <div><b>Revision</b>2026-10</div>
       <div><b data-i="m3">Standort</b>Frankfurt / Rhein-Main</div>
       <div><b>Status</b><span class="status" data-i="m4">Verfügbar für Projekte</span></div>
     </div>
@@ -224,7 +213,7 @@ footer{padding:28px 0 40px;font-family:var(--mono);font-size:12px;color:var(--mu
         <p class="role" data-i="role">MES Qualification &amp; Validation Engineer · Validation Lead · IT/OT Project Lead</p>
         <h1>Laurence<br><span>Monkam</span></h1>
         <p class="claim">Smart Solutions for Regulated Environments</p>
-        <p class="lead" data-i="lead">Ich qualifiziere und validiere Manufacturing Execution Systems für Pharma und Biotech: vom Validierungsmasterplan über DQ, IQ, OQ und PQ bis zur auditfesten Dokumentation. Seit über 15 Jahren für globale Pharmaunternehmen, auf Deutsch, Französisch und Englisch.</p>
+        <p class="lead" data-i="lead">Ich berate, qualifiziere, validiere und integriere Manufacturing Execution Systems für Pharma und Biotech: vom Validierungsmasterplan über DQ, IQ, OQ und PQ bis zur auditfesten Dokumentation. Seit über 15 Jahren für globale Pharmaunternehmen, auf Deutsch, Französisch und Englisch.</p>
         <div class="cta">
           <a class="btn primary" href="#kontakt" data-i="cta1">Projekt anfragen</a>
           <a class="btn" href="https://www.linkedin.com/in/laurence-monkam-468684139/" target="_blank" rel="noopener">LinkedIn <small>↗</small></a>
@@ -238,8 +227,6 @@ footer{padding:28px 0 40px;font-family:var(--mono);font-size:12px;color:var(--mu
     <div class="figs">
       <div><b>15+</b><span data-i="f1">Jahre MES im GMP-Umfeld</span></div>
       <div><b>6</b><span data-i="f2">MES- und Historian-Plattformen</span></div>
-      <div><b>DQ→PQ</b><span data-i="f3">inkl. FAT und SAT</span></div>
-      <div><b>DE·FR·EN</b><span data-i="f4">Projektsprachen</span></div>
     </div>
   </div>
 
@@ -376,7 +363,7 @@ const T={
  en:{n1:"Services",n2:"Projects",n3:"References",n4:"Contact",
   m1:"Document",m3:"Location",m4:"Available for projects",
   role:"MES Qualification & Validation Engineer · Validation Lead · IT/OT Project Lead",
-  lead:"I qualify and validate Manufacturing Execution Systems for pharma and biotech: from the validation master plan through DQ, IQ, OQ and PQ to audit-ready documentation. For more than 15 years, for global pharmaceutical companies, in German, French and English.",
+  lead:"I advise on, qualify, validate and integrate Manufacturing Execution Systems for pharma and biotech: from the validation master plan through DQ, IQ, OQ and PQ to audit-ready documentation. For more than 15 years, for global pharmaceutical companies, in German, French and English.",
   cta1:"Request a project",f1:"years of MES in GMP environments",f2:"MES and historian platforms",f3:"including FAT and SAT",f4:"project languages",
   s1:"Services",s1p:"The full range from strategy to execution, so your systems go live compliant and stay that way.",
   a_h:"Strategy & planning",a1:"<strong>Validation master plan</strong>including access control concept and system evaluation",a2:"<strong>Architecture & user requirements</strong>URS as the foundation of validation",
@@ -406,7 +393,7 @@ const T={
  fr:{n1:"Prestations",n2:"Projets",n3:"Références",n4:"Contact",
   m1:"Document",m3:"Lieu",m4:"Disponible pour des missions",
   role:"Ingénieure qualification & validation MES · Validation Lead · Cheffe de projet IT/OT",
-  lead:"Je qualifie et valide des Manufacturing Execution Systems pour la pharma et la biotech : du plan directeur de validation aux QD, QI, QO et QP, jusqu’à une documentation prête pour l’audit. Depuis plus de 15 ans, pour des groupes pharmaceutiques internationaux, en français, allemand et anglais.",
+  lead:"Je conseille, qualifie, valide et intègre des Manufacturing Execution Systems pour la pharma et la biotech : du plan directeur de validation aux QD, QI, QO et QP, jusqu’à une documentation prête pour l’audit. Depuis plus de 15 ans, pour des groupes pharmaceutiques internationaux, en français, allemand et anglais.",
   cta1:"Demander une mission",f1:"ans de MES en environnement BPF",f2:"plateformes MES et historian",f3:"y compris FAT et SAT",f4:"langues de travail",
   s1:"Prestations",s1p:"Un accompagnement complet, de la stratégie à l’exécution, pour que vos systèmes démarrent conformes et le restent.",
   a_h:"Stratégie & planification",a1:"<strong>Plan directeur de validation</strong>avec concept d’accès et évaluation du système",a2:"<strong>Architecture & besoins utilisateurs</strong>l’URS comme fondation de la validation",

@@ -1,5 +1,4 @@
-:root{--ink:#151515;--paper:#ececea;--sheet:#fbfbfa;--rule:#d2d0ca;--muted:#5f5d57;--gold:#8a6a2a;--grad:linear-gradient(120deg,#ad8848 0%,#e7d48c 45%,#f8f0a4 55%,#c9a45c 100%);color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--ink:#ece8de;--paper:#0f0f0e;--sheet:#191917;--rule:#34322c;--muted:#a6a196;--gold:#d9bd73;color-scheme:dark}}
+:root{--ink:#151515;--paper:#ffffff;--sheet:#fbfbfa;--rule:#e3dfd4;--muted:#5f5d57;--gold:#8a6a2a;--grad:linear-gradient(120deg,#ad8848 0%,#e7d48c 45%,#f8f0a4 55%,#c9a45c 100%);color-scheme:light}
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16.5px;line-height:1.65}
