@@ -32,10 +32,18 @@
 <section><div class="wrap"><div class="book">
   <div class="book-cover"><span class="soon" data-i="b_soon">Erscheint demnächst</span><div><div class="bt">Laurence Monkam</div><div class="ba">LMVEX Solutions+</div></div></div>
   <div>
-    <h2 data-i="b_h" style="font-size:clamp(30px,3.4vw,42px);margin-bottom:16px">Mein Buch ist in Arbeit</h2>
+    <h2 data-i="b_h" style="font-size:clamp(30px,3.4vw,42px);line-height:1.1;margin-bottom:16px">Mein Buch ist in Arbeit</h2>
     <p data-i="b_p1">Titel, Inhalt und Erscheinungstermin gebe ich hier bekannt, sobald sie feststehen.</p>
-    <p data-i="b_p2">Möchten Sie als Erste oder Erster erfahren, wann es erscheint? Schreiben Sie mir kurz – ich melde mich zum Start.</p>
-    <div style="margin-top:22px"><a data-i="b_cta" class="btn dark" href="mailto:laurence.monkam@lmvex.de?subject=Buch%20%E2%80%93%20Benachrichtigung">Benachrichtigung anfordern</a></div>
+    <p data-i="b_p2">Möchten Sie als Erste oder Erster erfahren, wann es erscheint? Tragen Sie sich einfach ein – ich melde mich zum Start.</p>
+    <form class="nform" id="notify" data-subject="Buch – Benachrichtigung" data-ok="nf_ok" novalidate>
+      <div class="frow"><label for="nf-name"><span data-i="nf_l1">Name *</span></label><input id="nf-name" name="name" type="text" autocomplete="name" required></div>
+      <div class="frow"><label for="nf-mail"><span data-i="nf_l2">E-Mail *</span></label><input id="nf-mail" name="email" type="email" autocomplete="email" required></div>
+      <div class="frow"><label for="nf-lang"><span data-i="nf_l3">Bevorzugte Sprache</span></label><select id="nf-lang" name="language"><option>Deutsch</option><option>English</option><option>Français</option></select></div>
+      <div class="frow"><label for="nf-msg"><span data-i="nf_l4">Nachricht (optional)</span></label><textarea id="nf-msg" name="message" rows="3"></textarea></div>
+      <div class="fcheck"><input id="nf-ok" name="consent" type="checkbox" required><label for="nf-ok"><span data-i="nf_l5">Ich bin einverstanden, dass meine Angaben verwendet werden, um mich über das Erscheinen des Buchs zu informieren. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>. *</span></label></div>
+      <button class="btn dark" type="submit"><span data-i="nf_l6">Benachrichtigung anfordern</span></button>
+      <p class="fmsg" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </div></div></section>
 </main>
@@ -43,12 +51,13 @@
   <div class="wrap">
     <div><div class="brand"><img src="logo.png" alt="" width="34" height="34">LMVEX Solutions+</div>
       <div data-i="tagline_f">Smarte Lösungen für regulierte Umgebungen</div>
-      <div data-i="foot_loc">Laurence Monkam · Riedstadt / Rhein-Main</div></div>
+</div>
     <ul><li><a data-i="nav_l_f" href="leistungen.html">Leistungen</a></li><li><a data-i="nav_p_f" href="projekte.html">Projekte</a></li><li><a data-i="nav_r_f" href="referenzen.html">Referenzen</a></li><li><a data-i="nav_b_f" href="buch.html">Buch</a></li><li><a data-i="nav_c_f" href="coaching.html">Coaching</a></li><li><a data-i="nav_k_f" href="kontakt.html">Kontakt</a></li></ul>
-    <ul><li><a href="mailto:laurence.monkam@lmvex.de">laurence.monkam@lmvex.de</a></li><li><a href="tel:+4915209232896">+49 152 09232896</a></li><li><a href="https://www.linkedin.com/in/laurence-monkam-468684139/" target="_blank" rel="noopener">LinkedIn ↗</a></li></ul>
+    <ul><li><a href="mailto:laurence.monkam@lmvex.de">laurence.monkam@lmvex.de</a></li><li><span data-i="foot_loc">Riedstadt / Rhein-Main</span></li><li><a href="tel:+4915209232896">+49 152 09232896</a></li><li><a href="https://www.linkedin.com/in/laurence-monkam-468684139/" target="_blank" rel="noopener">LinkedIn ↗</a></li></ul>
     <div class="small"><span>© 2026 LMVEX Solutions+ · Laurence Monkam</span><span><a data-i="imp" href="impressum.html">Impressum</a> · <a data-i="dsg" href="datenschutz.html">Datenschutz</a></span></div>
   </div>
 </footer>
+<script data-goatcounter="https://lmvex.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <script src="i18n.js"></script>
 <script src="site.js"></script>
 </body>
